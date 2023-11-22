@@ -47,4 +47,48 @@ public class OrganizationController {
         }
 
     }
+
+    @GetMapping("/getAll")
+    public ResponseEntity<?> getAllOrganization(){
+        try{
+            return ResponseEntity.ok(organizationService.getAllOrganization());
+        }catch (GeneralBusinessException e){
+            log.error("General Exception:Error while getting all organizations: ", e);
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+        catch (Exception e){
+            log.error("Unexpected error while getting all organizations: ", e);
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+
+    }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<?> updateOrganization(@PathVariable Integer id, @RequestBody OrganizationRequest organizationRequest){
+        try{
+            return ResponseEntity.ok(organizationService.updateOrganization(id, organizationRequest));
+        }catch (GeneralBusinessException e){
+            log.error("General Exception:Error while updating organization: ", e);
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+        catch (Exception e){
+            log.error("Unexpected error while updating organization: ", e);
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> deleteOrganization(@PathVariable Integer id){
+        try{
+            return ResponseEntity.ok(organizationService.deleteOrganization(id));
+        }catch (GeneralBusinessException e){
+            log.error("General Exception:Error while deleting organization: ", e);
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+        catch (Exception e){
+            log.error("Unexpected error while deleting organization: ", e);
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
 }

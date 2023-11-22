@@ -37,10 +37,10 @@ public class OpenApiConfig {
         License mitLicense = new License().name("MIT License").url("https://choosealicense.com/licenses/mit/");
 
         Info info = new Info()
-                .title("")
+                .title("Cost Calculator")
                 .version("1.0")
                 .contact(contact)
-                .description("This API exposes endpoints to manage attendance of any Organization.").termsOfService("https://www.eimsky.com")
+                .description("This API exposes endpoints to calculate Cost.").termsOfService("https://www.eimsky.com")
                 .license(mitLicense);
 
         return new OpenAPI().info(info).servers(List.of(devServer, prodServer));

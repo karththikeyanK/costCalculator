@@ -1,6 +1,5 @@
 package com.CBL.CostCalculator.dto;
 
-import com.CBL.CostCalculator.entity.Organization;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,9 +7,11 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class OrganizationResponse {
+public class VehicleResponse {
     private Integer id;
-    private String name;
-    private String regNo;
-
+    private String type;
+    private String vehicleNumber;
+    private Integer capacity;
+    private Double costPerKM;
+    private Integer regionId;
 }

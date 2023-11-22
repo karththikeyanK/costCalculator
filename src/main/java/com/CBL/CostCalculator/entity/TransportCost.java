@@ -1,10 +1,14 @@
 package com.CBL.CostCalculator.entity;
 
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
+import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @Builder
@@ -25,17 +29,25 @@ public class TransportCost {
     @Column(name = "status", nullable = false)
     private String status;
 
+    @Column(name = "jobDate", nullable = false)
+    private LocalDate Date;
+
     @ManyToOne
     @JoinColumn(name = "vehicle_id", nullable = false)
     private Vehicle vehicle;
 
-    @ManyToOne
-    @JoinColumn(name = "shop_id", nullable = false)
-    private Shop shop;
 
-    @ManyToOne
-    @JoinColumn(name = "region_id", nullable = false)
-    private Region region;
+//    @ManyToMany(fetch = FetchType.EAGER)
+//    @JoinTable(
+//            name = "TransportCost_Shop",
+//            joinColumns = @JoinColumn(name = "transportCost_id"),
+//            inverseJoinColumns = @JoinColumn(name = "shop_id")
+//    )
+//    @JsonManagedReference
+//    private Set<Shop> shops = new HashSet<>();
 
+    @OneToMany(mappedBy = "transportCost",fetch = FetchType.EAGER)
+    @JsonIgnoreProperties("transportCost")
+    private Set<TransportCostManger> transportCostMangers = new HashSet<>();
 
 }

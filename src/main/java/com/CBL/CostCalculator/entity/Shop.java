@@ -1,10 +1,12 @@
 package com.CBL.CostCalculator.entity;
 
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @Builder
@@ -12,7 +14,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity
 @Table(
-        name = "Shops"
+        name = "Shop"
 )
 public class Shop {
     @Id
@@ -37,4 +39,16 @@ public class Shop {
     @ManyToOne
     @JoinColumn(name = "region_id", nullable = false)
     private Region region;
+
+
+//    @ManyToMany(mappedBy = "shops", fetch = FetchType.EAGER)
+//    @JsonBackReference
+//    private Set<TransportCost> transportCost = new HashSet<>();
+
+
+    @OneToMany(mappedBy = "shop",fetch = FetchType.EAGER)
+    @JsonIgnoreProperties("shop")
+    private Set<TransportCostManger> transportCostMangers = new HashSet<>();
+
+
 }
