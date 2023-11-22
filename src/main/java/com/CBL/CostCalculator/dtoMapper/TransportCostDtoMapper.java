@@ -39,14 +39,9 @@ public class TransportCostDtoMapper {
                throw new GeneralBusinessException("Shop not found with id: " + costRequest.getShopId());
            }
            log.info("Transport Dto Mapper::Many To Many ");
-            Set<TransportCostManger> transportCostMangers = new HashSet<>();
-            for (Shop shop: shops) {
-                TransportCostManger transportCostManger = new TransportCostManger();
-                transportCostManger.setShop(shop);
-                transportCostManger.setTransportCost(transportCost);
-                transportCostMangers.add(transportCostManger);
-            }
-            transportCost.setTransportCostMangers(transportCostMangers);
+
+
+            transportCost.setShops(new HashSet<>(shops));
             return transportCost;
         }catch (GeneralBusinessException ex){
             throw ex;
@@ -67,7 +62,7 @@ public class TransportCostDtoMapper {
             costResponse.setStatus(transportCost.getStatus());
             costResponse.setDate(transportCost.getDate());
             costResponse.setVehicleId(transportCost.getVehicle().getId());
-            costResponse.setShopId(transportCost.getTransportCostMangers().stream().map(TransportCostManger::getShop).map(Shop::getId).collect(Collectors.toList()));
+            costResponse.setShopId(transportCost.getShops().stream().map(Shop::getId).collect(Collectors.toList()));
             return costResponse;
         }catch (Exception e){
             log.error("Error while converting to dto: {}", e.getMessage());

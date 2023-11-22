@@ -77,14 +77,14 @@ public class TransportCostService {
     public List<CostResponse> getAllTransportCost() {
         log.info("Transport Cost Service::Getting all transport cost started");
         try{
-            List<TransportCostManger> transportCostMangers = transportCostMangerRepository.findAll();
-            log.info("Transport Cost Service::Transport cost retrieved successfully"+transportCostMangers.toString());
-            if (transportCostMangers.isEmpty()) {
+            List<TransportCost> transportCostList = transportCostRepository.findAll();
+            log.info("Transport Cost Service::Transport cost retrieved successfully"+transportCostList.toString());
+            if (transportCostList.isEmpty()) {
                 log.error("Transport Cost Service::Transport cost not found");
                 throw new GeneralBusinessException("Transport cost not found");
             }
             log.info("Transport Cost Service::Transport cost retrieved successfully");
-            return transportCostMangers.stream().map(this::mapToManagerResponse).toList();
+            return transportCostList.stream().map(this::mapToResponse).toList();
         }catch (GeneralBusinessException ex){
             throw ex;
         }

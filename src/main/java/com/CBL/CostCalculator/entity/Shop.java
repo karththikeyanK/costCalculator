@@ -1,6 +1,7 @@
 package com.CBL.CostCalculator.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
@@ -46,9 +47,7 @@ public class Shop {
 //    private Set<TransportCost> transportCost = new HashSet<>();
 
 
-    @OneToMany(mappedBy = "shop",fetch = FetchType.EAGER)
-    @JsonIgnoreProperties("shop")
-    private Set<TransportCostManger> transportCostMangers = new HashSet<>();
+
 
 
 }

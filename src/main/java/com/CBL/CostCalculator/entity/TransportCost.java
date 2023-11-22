@@ -1,8 +1,6 @@
 package com.CBL.CostCalculator.entity;
 
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -37,17 +35,14 @@ public class TransportCost {
     private Vehicle vehicle;
 
 
-//    @ManyToMany(fetch = FetchType.EAGER)
-//    @JoinTable(
-//            name = "TransportCost_Shop",
-//            joinColumns = @JoinColumn(name = "transportCost_id"),
-//            inverseJoinColumns = @JoinColumn(name = "shop_id")
-//    )
-//    @JsonManagedReference
-//    private Set<Shop> shops = new HashSet<>();
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "TransportCost_Shop",
+            joinColumns = @JoinColumn(name = "transportCost_id"),
+            inverseJoinColumns = @JoinColumn(name = "shop_id")
+    )
+    @JsonManagedReference
+    private Set<Shop> shops = new HashSet<>();
 
-    @OneToMany(mappedBy = "transportCost",fetch = FetchType.EAGER)
-    @JsonIgnoreProperties("transportCost")
-    private Set<TransportCostManger> transportCostMangers = new HashSet<>();
 
 }
